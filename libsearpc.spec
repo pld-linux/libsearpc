@@ -16,8 +16,10 @@ BuildRequires:	automake
 BuildRequires:	glib2-devel
 BuildRequires:	jansson-devel
 BuildRequires:	libtool
+BuildRequires:	pkgconfig
 BuildRequires:	python-pygobject
 BuildRequires:	python-simplejson
+BuildRequires:	rpm-pythonprov
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
