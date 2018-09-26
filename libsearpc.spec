@@ -4,12 +4,12 @@
 
 Summary:	A simple and easy-to-use C language RPC framework
 Name:		libsearpc
-Version:	3.0.7
+Version:	3.1.0
 Release:	1
 License:	LGPL v3
 Group:		Libraries
 Source0:	https://github.com/haiwen/libsearpc/archive/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	1d20e93e0fb39f98c907e633d9f1b11b
+# Source0-md5:	5b4191620d7a49a46fd4e07736dd4c88
 URL:		https://github.com/haiwen/libsearpc
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -75,7 +75,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc README.markdown AUTHORS COPYING
+%doc README.markdown AUTHORS
 %attr(755,root,root) %{_libdir}/libsearpc.so.*.*.*
 %ghost %{_libdir}/libsearpc.so.1
 %attr(755,root,root) %{_bindir}/searpc-codegen
@@ -83,8 +83,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%doc COPYING
 %{_includedir}/searpc-client.h
+%{_includedir}/searpc-named-pipe-transport.h
 %{_includedir}/searpc-server.h
 %{_includedir}/searpc-utils.h
 %{_includedir}/searpc.h
