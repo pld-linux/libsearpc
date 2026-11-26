@@ -1,0 +1,8 @@
+--- libsearpc-3.3-latest/lib/searpc-codegen.py.orig	2025-03-03 10:04:23.000000000 +0100
++++ libsearpc-3.3-latest/lib/searpc-codegen.py	2025-03-03 10:04:23.000000000 +0100
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/python3
+
+ """
+ Generate function define macros.

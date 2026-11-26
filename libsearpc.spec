@@ -2,23 +2,24 @@
 # Conditional build:
 %bcond_without	tests		# build without tests
 
+%define		tag	3.3-latest
 Summary:	A simple and easy-to-use C language RPC framework
 Name:		libsearpc
-Version:	3.1.0
-Release:	1
-License:	LGPL v3
+Version:	3.3
+Release:	2
+License:	Apache v2.0
 Group:		Libraries
-Source0:	https://github.com/haiwen/libsearpc/archive/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	5b4191620d7a49a46fd4e07736dd4c88
+Source0:	https://github.com/haiwen/libsearpc/archive/v%{tag}/%{name}-%{tag}.tar.gz
+# Source0-md5:	66f5caf072825723bde063cb9a4681ff
+Patch0:		%{name}-python3-shebang.patch
 URL:		https://github.com/haiwen/libsearpc
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	glib2-devel
-BuildRequires:	jansson-devel
+BuildRequires:	glib2-devel >= 1:2.26.0
+BuildRequires:	jansson-devel >= 2.2.1
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
-BuildRequires:	python-pygobject
-BuildRequires:	python-simplejson
+BuildRequires:	python3-devel
 BuildRequires:	rpm-pythonprov
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -30,7 +31,7 @@ transport part is left to users.
 %package devel
 Summary:	Development files for %{name}
 Requires:	%{name} = %{version}-%{release}
-Requires:	glib2-devel
+Requires:	glib2-devel >= 1:2.26.0
 Requires:	jansson-devel >= 2.2.1
 
 %description devel
@@ -38,10 +39,8 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%setup -qn %{name}-%{version}
-
-# meh is this?
-sed -i -e 's/(DESTDIR)//' %{name}.pc.in
+%setup -qn %{name}-%{tag}
+%patch -P0 -p1
 
 %build
 %{__aclocal} -I m4
@@ -51,7 +50,8 @@ sed -i -e 's/(DESTDIR)//' %{name}.pc.in
 %{__automake}
 %configure \
 	--disable-compile-demo \
-	--disable-static
+	--disable-static \
+	--with-python3
 
 %{__make}
 %if %{with tests}
@@ -79,7 +79,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libsearpc.so.*.*.*
 %ghost %{_libdir}/libsearpc.so.1
 %attr(755,root,root) %{_bindir}/searpc-codegen
-%{py_sitedir}/pysearpc
+%{py3_sitedir}/pysearpc
 
 %files devel
 %defattr(644,root,root,755)
